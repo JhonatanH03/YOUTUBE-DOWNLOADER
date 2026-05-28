@@ -1,22 +1,26 @@
-import { invoke } from "@tauri-apps/api/core";
+import { invoke } from "@tauri-apps/api/tauri";
 
-let greetInputEl: HTMLInputElement | null;
-let greetMsgEl: HTMLElement | null;
+const urlInput = document.querySelector<HTMLInputElement>("#video-url");
+const qualitySelect = document.querySelector<HTMLSelectElement>("#quality-select");
+const statusEl = document.querySelector<HTMLElement>("#download-status");
 
-async function greet() {
-  if (greetMsgEl && greetInputEl) {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    greetMsgEl.textContent = await invoke("greet", {
-      name: greetInputEl.value,
-    });
+async function downloadVideo(e?: Event) {
+  e?.preventDefault();
+  const url = urlInput?.value?.trim();
+  const quality = qualitySelect?.value ?? "best";
+  if (!url) {
+    if (statusEl) statusEl.textContent = "Please enter a video URL.";
+    return;
+  }
+  if (statusEl) statusEl.textContent = "Sending request...";
+  try {
+    const res = await invoke<string>("download_video", { url, quality });
+    if (statusEl) statusEl.textContent = String(res);
+  } catch (err) {
+    if (statusEl) statusEl.textContent = `Error: ${err}`;
   }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  greetInputEl = document.querySelector("#greet-input");
-  greetMsgEl = document.querySelector("#greet-msg");
-  document.querySelector("#greet-form")?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    greet();
-  });
+  document.querySelector("#download-form")?.addEventListener("submit", downloadVideo);
 });

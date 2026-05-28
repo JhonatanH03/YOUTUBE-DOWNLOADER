@@ -33,11 +33,19 @@
       </div>
       <p>Click on the Tauri logo to learn more about the framework</p>
 
-      <form class="row" id="greet-form">
-        <input id="greet-input" placeholder="Enter a name..." />
-        <button type="submit">Greet</button>
-      </form>
-      <p id="greet-msg"></p>
+      <section class="download">
+        <h2>YOUTUBE-DOWNLOADER</h2>
+        <form id="download-form" class="row">
+          <input id="video-url" placeholder="Paste YouTube URL..." required />
+          <select id="quality-select">
+            <option value="best">Best</option>
+            <option value="bestvideo">Best video</option>
+            <option value="bestaudio">Best audio</option>
+          </select>
+          <button type="submit">Download</button>
+        </form>
+        <p id="download-status"></p>
+      </section>
     </main>
   </body>
 </html>
