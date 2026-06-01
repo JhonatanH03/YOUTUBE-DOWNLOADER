@@ -4,49 +4,39 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/src/styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tauri App</title>
+    <title>YouTube Downloader</title>
     <script type="module" src="/src/main.ts" defer></script>
   </head>
 
   <body>
     <main class="container">
-      <h1>Welcome to Tauri</h1>
-
-      <div class="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/src/assets/vite.svg" class="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img
-            src="/src/assets/tauri.svg"
-            class="logo tauri"
-            alt="Tauri logo"
-          />
-        </a>
-        <a href="https://www.typescriptlang.org/docs" target="_blank">
-          <img
-            src="/src/assets/typescript.svg"
-            class="logo typescript"
-            alt="typescript logo"
-          />
-        </a>
-      </div>
-      <p>Click on the Tauri logo to learn more about the framework</p>
+      <h1>🎬 YouTube Downloader</h1>
+      <p>Download your favorite YouTube videos in the quality you want</p>
 
       <section class="download">
-        <h2>YOUTUBE-DOWNLOADER</h2>
-        <form id="download-form" class="row">
-          <input id="video-url" placeholder="Paste YouTube URL..." required />
-          <select id="quality-select">
-            <option value="best">Best</option>
-            <option value="bestvideo">Best video</option>
-            <option value="bestaudio">Best audio</option>
-          </select>
-          <button type="submit">Download</button>
+        <form id="download-form">
+          <div class="form-group">
+            <label for="video-url">YouTube URL:</label>
+            <input id="video-url" type="url" placeholder="https://www.youtube.com/watch?v=..." required />
+          </div>
+          
+          <div class="form-group">
+            <label for="quality-select">Quality:</label>
+            <select id="quality-select">
+              <option value="best">Best Available</option>
+              <option value="bestvideo">Best Video Only</option>
+              <option value="bestaudio">Best Audio Only</option>
+            </select>
+          </div>
+          
+          <button type="submit" id="download-btn">Download</button>
         </form>
-        <p id="download-status"></p>
-        <progress id="download-progress" value="0" max="100" style="width:100%; display:none;"></progress>
-        <button id="cancel-btn" style="display:none;">Cancel</button>
+        
+        <div id="status-container" style="display:none; margin-top: 20px;">
+          <p id="download-status"></p>
+          <progress id="download-progress" value="0" max="100"></progress>
+          <button id="cancel-btn">Cancel Download</button>
+        </div>
       </section>
     </main>
   </body>
